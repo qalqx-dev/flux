@@ -24,13 +24,3 @@
 1. Clone this repository.
 2. Open `index.html` in a modern browser (Chrome/Brave).
 3. **PWA:** Tap "Add to Home Screen" to install as a native Android app.
-
-## 🚀 Deployment
-This project is optimized for **Cloudflare Pages** to enable Multi-Threading support (`SharedArrayBuffer`).
-
-**Required Headers (`_headers`):**
-```text
-/*
-  Cross-Origin-Opener-Policy: same-origin
-  Cross-Origin-Embedder-Policy: require-corp
-  Cross-Origin-Resource-Policy: cross-origin
