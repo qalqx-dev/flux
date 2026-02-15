@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLUX | Fast Offline File Converter (Video, Audio, CAD, DICOM)</title>
+    
+    <meta name="description" content="Convert video, audio, images, PDFs, and 3D models locally in your browser. FLUX is a serverless, privacy-focused converter optimized for 12GB RAM devices. Supports FFmpeg, 4K, and DICOM.">
+    <meta name="keywords" content="offline file converter, browser based video converter, privacy focused converter, convert mkv to mp4 local, dicom to png, stl to gltf, free unlimited converter, wasm ffmpeg, monoaxis">
+    <meta name="author" content="MONOAXIS">
+    <link rel="canonical" href="https://flux-cloud.netlify.app/">
+    
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+    <meta property="og:title" content="FLUX | The 12GB RAM Local Converter">
+    <meta property="og:description" content="Processing 1100+ formats entirely on your device. No uploads. No servers. Zero data leaks. Engineered by MONOAXIS.">
+    <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/2621/2621040.png">
+    <meta property="og:url" content="https://flux-cloud.netlify.app">
+    <meta property="og:type" content="website">
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjMDIwNjE3IiBkPSJNMCAwaDUxMnY1MTJIMHoiLz48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiMwMGYyZmYiIHN0cm9rZS13aWR0aD0iMjAiIGQ9Ik0yNTYgNTBsMjAwIDExNXYyMzJMMjU2IDQ2MiA1NiAzOTdWMTY1eiIvPjxwYXRoIGZpbGw9IiMwMGYyZmYiIGQ9Ik0xODAgMTUwaDE1MHY0MGgtMTEwdjYwaDEwMHY0MEgyMjB2OTBoLTQweiIvPjwvc3ZnPg==">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#020617">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "FLUX",
+      "operatingSystem": "Any (Web-based, Android, iOS, Windows, Linux)",
+      "applicationCategory": "UtilitiesApplication",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": "Offline conversion, FFmpeg WASM, Medical DICOM support, 3D Model conversion, 12GB RAM Optimization",
+      "author": { "@type": "Person", "name": "MONOAXIS", "url": "https://monoaxis.netlify.app" },
+      "description": "A serverless, client-side universal file converter that runs entirely in the browser using WebAssembly."
+    }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { cyber: '#00f2ff', darkBg: '#020617', glass: 'rgba(15, 23, 42, 0.7)' },
+                    fontFamily: { mono: ['Courier New', 'monospace'], sans: ['Segoe UI', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkBg text-slate-200 min-h-screen flex items-center justify-center p-4 selection:bg-cyber selection:text-black font-sans">
+
+    <div class="main-card max-w-xl w-full bg-glass backdrop-blur-2xl rounded-[2rem] p-8 border border-slate-700/50 shadow-[0_0_50px_rgba(0,242,255,0.1)] relative overflow-hidden">
+        
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-1 bg-cyber shadow-[0_0_30px_#00f2ff]"></div>
+
+        <div class="text-center mb-8 relative z-10">
+            <h1 class="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyber via-blue-400 to-cyber tracking-tighter italic uppercase drop-shadow-[0_0_10px_rgba(0,242,255,0.5)]">
+                FLUX
+            </h1>
+            
+            <div class="flex justify-center items-center gap-3 mt-2">
+                <div class="flex gap-1">
+                    <span class="w-1 h-4 bg-cyber/50 rounded-sm"></span>
+                    <span class="w-1 h-4 bg-cyber/80 rounded-sm"></span>
+                    <span class="w-1 h-4 bg-cyber rounded-sm animate-pulse"></span>
+                </div>
+                <p class="text-slate-400 text-[10px] font-mono tracking-[0.4em] uppercase border border-slate-700/50 px-2 py-1 rounded bg-slate-900/50">
+                    SYSTEMS NOMINAL // v3.0
+                </p>
+            </div>
+
+            <div class="flex justify-center gap-4 mt-4">
+                <a href="about.html" class="text-[10px] text-slate-500 hover:text-cyber border-b border-transparent hover:border-cyber transition-all font-mono tracking-widest">
+                    [ SYSTEM SPECS ]
+                </a>
+                <button onclick="toggleManual()" class="text-[10px] text-slate-500 hover:text-green-400 border-b border-transparent hover:border-green-400 transition-all font-mono tracking-widest">
+                    [ OPERATING MANUAL ]
+                </button>
+            </div>
+        </div>
+
+        <div id="dropZone" onclick="document.getElementById('masterUpload').click()" 
+             role="button" aria-label="File Upload Area. Click or Drag files here." tabindex="0"
+             class="group relative border-2 border-dashed border-slate-700 rounded-3xl p-10 text-center cursor-pointer hover:border-cyber hover:bg-cyber/5 transition-all duration-300 mb-6">
+            <input type="file" id="masterUpload" multiple hidden onchange="updateQueue()">
+            
+            <div class="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_0_15px_rgba(0,242,255,0.3)]">
+                🌌
+            </div>
+            <p class="text-slate-200 font-bold text-lg tracking-wide group-hover:text-cyber transition-colors">
+                INITIALIZE DATA STREAM
+            </p>
+            <p class="text-slate-500 text-[10px] mt-2 uppercase tracking-wider font-mono">
+                Audio • Video • 3D • Docs • Sheets • Images • Archives
+            </p>
+        </div>
+
+        <div id="fileQueue" class="space-y-2 mb-6 max-h-32 overflow-y-auto custom-scrollbar font-mono text-[11px] p-2 bg-slate-900/30 rounded-xl border border-slate-800/50">
+            <div class="text-center text-slate-600 italic py-4">Waiting for input...</div>
+        </div>
+
+        <div class="space-y-4 relative z-10">
+            <div class="flex gap-3">
+                <div class="relative group cursor-pointer w-full" onclick="openFormatMenu()">
+                    <label class="absolute -top-2.5 left-4 px-2 bg-[#0b1121] text-[10px] text-cyber font-bold tracking-widest uppercase border border-slate-800 rounded">
+                        Target Format
+                    </label>
+                    <div class="flex items-center justify-between w-full bg-slate-950/50 border border-slate-700 rounded-2xl px-6 py-4 transition-all hover:border-cyber hover:shadow-[0_0_20px_rgba(0,242,255,0.1)]">
+                        <input type="text" id="targetExt" value="mp4" readonly 
+                               class="bg-transparent text-cyber font-mono tracking-wider text-lg focus:outline-none w-full cursor-pointer uppercase">
+                        <span class="text-slate-500 text-xs">▼</span>
+                    </div>
+                </div>
+
+                <button onclick="toggleSettings()" class="bg-slate-900 border border-slate-700 rounded-2xl w-16 flex items-center justify-center hover:border-cyber hover:text-cyber transition-all group relative">
+                    <span class="text-2xl group-hover:rotate-90 transition-transform duration-500">⚙️</span>
+                    <div class="absolute -top-10 bg-slate-800 text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-slate-700">
+                        ENGINE SETTINGS
+                    </div>
+                </button>
+            </div>
+
+            <button onclick="igniteMaster()" id="actionBtn"
+                    class="w-full bg-cyber hover:bg-cyan-300 text-slate-950 font-black py-5 rounded-2xl uppercase tracking-[0.2em] transition-all active:scale-95 shadow-[0_0_20px_rgba(0,242,255,0.2)] hover:shadow-[0_0_40px_rgba(0,242,255,0.4)] relative overflow-hidden group">
+                <span class="relative z-10">ENGAGE CONVERSION</span>
+                <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+            </button>
+        </div>
+
+        <div id="statusSection" class="hidden mt-8 pt-6 border-t border-slate-800 animate-fade-in">
+            <div class="flex justify-between text-[10px] font-mono mb-2">
+                <span id="statusText" class="text-slate-400 uppercase tracking-widest">SYSTEM IDLE</span>
+                <span id="percentText" class="text-cyber font-bold">0%</span>
+            </div>
+            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mb-4">
+                <div id="progressBar" class="w-0 h-full bg-cyber shadow-[0_0_15px_#00f2ff] transition-all duration-300"></div>
+            </div>
+            <div id="downloadArea" class="flex flex-col gap-2 max-h-40 overflow-y-auto custom-scrollbar"></div>
+        </div>
+
+        <div class="mt-8 border-t border-slate-800 pt-6 text-left">
+            <h2 class="text-cyber text-xs font-bold uppercase mb-2">Why use FLUX Local Converter?</h2>
+            <div class="text-[10px] text-slate-500 space-y-2 leading-relaxed">
+                <p><strong>Privacy First:</strong> Unlike cloud converters, FLUX runs <span class="text-slate-300">FFmpeg WASM</span> directly in your browser. Your video files and DICOM scans never leave your device.</p>
+                <p><strong>Unlimited Processing:</strong> Optimized for high-performance devices (12GB RAM+), FLUX handles large 4K video encoding and 3D mesh conversion without server queues.</p>
+                <p><strong>Offline Capability:</strong> Install FLUX as a PWA to convert files without internet access.</p>
+            </div>
+        </div>
+
+        <div class="mt-8 pt-4 border-t border-slate-800/50 flex flex-col items-center gap-1">
+            <p class="text-[9px] text-slate-600 font-mono tracking-widest uppercase">
+                ENGINEERED BY <a href="https://monoaxis.netlify.app" target="_blank" class="text-slate-400 font-bold hover:text-cyber transition-colors cursor-pointer decoration-dotted underline underline-offset-2">MONOAXIS®</a>
+            </p>
+            <p class="text-[8px] text-slate-700 font-sans">
+                © 2026 MONOAXIS. ALL RIGHTS RESERVED.
+            </p>
+        </div>
+    </div>
+
+    <div id="formatMenuModal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-[60] hidden flex items-center justify-center p-4 animate-fade-in">
+        <div class="bg-slate-900 border border-slate-700 w-full max-w-4xl h-[80vh] rounded-2xl flex overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)] relative">
+            <button onclick="closeFormatMenu()" class="absolute top-4 right-4 z-10 text-slate-400 hover:text-white bg-slate-800 p-2 rounded-full">✕</button>
+
+            <div class="w-1/3 md:w-1/4 bg-slate-950 border-r border-slate-800 overflow-y-auto custom-scrollbar">
+                <div class="p-4 border-b border-slate-800">
+                    <h3 class="text-slate-400 text-xs font-bold uppercase tracking-widest">Category</h3>
+                </div>
+                <ul id="categoryList" class="text-sm font-medium text-slate-400">
+                    </ul>
+            </div>
+
+            <div class="w-2/3 md:w-3/4 bg-slate-900 p-6 overflow-y-auto custom-scrollbar">
+                <div class="mb-6">
+                    <h3 id="currentCategoryTitle" class="text-white text-xl font-bold flex items-center gap-2">
+                        <span class="text-cyber">●</span> Select Format
+                    </h3>
+                    <p class="text-[10px] text-slate-500 mt-1">Choose the output format for your files.</p>
+                </div>
+                <div id="formatGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="settingsModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[70] hidden flex items-center justify-center p-4 animate-fade-in">
+        <div class="bg-slate-900 border border-slate-700 w-full max-w-lg rounded-2xl p-6 relative shadow-[0_0_50px_rgba(0,0,0,0.8)]">
+            <button onclick="toggleSettings()" class="absolute top-4 right-4 text-slate-500 hover:text-white">✕</button>
+            <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span class="text-cyber">⚙️</span> ENGINE CONFIGURATION
+            </h2>
+            <div class="space-y-6">
+                <div>
+                    <label class="text-xs text-slate-400 uppercase tracking-widest font-bold block mb-2">Video Resolution</label>
+                    <select id="settingRes" class="w-full bg-slate-950 border border-slate-800 rounded p-3 text-sm text-white focus:border-cyber outline-none">
+                        <option value="original">Original (Source)</option>
+                        <option value="1920x1080">1080p Full HD</option>
+                        <option value="1280x720">720p HD</option>
+                        <option value="854x480">480p SD</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-xs text-slate-400 uppercase tracking-widest font-bold block mb-2">Compression (CRF)</label>
+                    <input type="range" id="settingCRF" min="18" max="35" value="23" class="w-full accent-cyber h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer">
+                    <div class="flex justify-between text-[9px] text-slate-500 mt-1">
+                        <span>High Quality (Slow)</span>
+                        <span>Balanced</span>
+                        <span>Low Size (Fast)</span>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-slate-950 rounded border border-slate-800">
+                    <span class="text-xs text-slate-300 font-mono">SHOW TERMINAL LOGS</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="settingLogs" class="sr-only peer">
+                        <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-cyber"></div>
+                    </label>
+                </div>
+                <div>
+                    <label class="text-xs text-slate-400 uppercase tracking-widest font-bold block mb-2">FFmpeg Flags (Advanced)</label>
+                    <input type="text" id="settingFlags" placeholder="-b:v 1M -an (Optional)" class="w-full bg-slate-950 border border-slate-800 rounded p-3 text-xs font-mono text-cyber placeholder:text-slate-700 focus:border-cyber outline-none">
+                </div>
+            </div>
+            <button onclick="toggleSettings()" class="w-full mt-6 bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded border border-slate-600 uppercase text-xs tracking-widest transition-all">
+                Save Configuration
+            </button>
+        </div>
+    </div>
+
+    <div id="manualModal" class="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 animate-fade-in">
+        <div class="bg-slate-900 border border-cyber/50 p-6 md:p-8 rounded-2xl max-w-2xl w-full relative shadow-[0_0_50px_rgba(0,242,255,0.2)]">
+            <button onclick="toggleManual()" class="absolute top-4 right-4 text-slate-500 hover:text-white">✕</button>
+            <h2 class="text-xl md:text-2xl font-black text-cyber mb-6 uppercase border-b border-slate-800 pb-2">Flux Operating Protocols</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                <div class="space-y-2">
+                    <h3 class="text-white font-bold flex items-center gap-2"><span class="text-blue-400">☁️</span> FLUX CLOUD (Web)</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">Standard access via URL. Great for sharing.</p>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-white font-bold flex items-center gap-2"><span class="text-green-400">⚡</span> FLUX LOCAL (App)</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">Offline capable. Max speed (Direct Hardware Access).</p>
+                    <div class="mt-2 p-2 bg-slate-800 rounded border border-green-500/30 text-center">
+                        <p class="text-[10px] text-green-400 font-bold uppercase">To Install:</p>
+                        <p class="text-[10px] text-slate-400">Browser Menu (⋮) > "Add to Home Screen"</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 text-center">
+                <button onclick="toggleManual()" class="px-6 py-2 bg-cyber text-black font-bold text-xs uppercase rounded hover:bg-white transition-all">Acknowledge & Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="updateToast" class="fixed bottom-4 left-1/2 -translate-x-1/2 bg-cyber text-black px-6 py-3 rounded-full font-bold text-xs shadow-[0_0_20px_#00f2ff] hidden cursor-pointer z-50" onclick="window.location.reload()">
+        🚀 UPDATE AVAILABLE (TAP TO REFRESH)
+    </div>
+
+    <script>
+        function toggleManual() { document.getElementById('manualModal').classList.toggle('hidden'); }
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').then(reg => {
+                reg.addEventListener('updatefound', () => {
+                    const newWorker = reg.installing;
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            document.getElementById('updateToast').classList.remove('hidden');
+                        }
+                    });
+                });
+            });
+        }
+    </script>
+
+    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@longlost/wasm-imagemagick@2.2.1/fs-shared.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/pandoc-wasm@0.1.5/dist/index.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/subsrt/lib/subsrt.min.js" defer></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/exporters/GLTFExporter.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/daikon@1.2.43/dist/daikon.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/opentype.js@latest/dist/opentype.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-untar@2.0.0/build/dist/untar.js" defer></script>
+
+    <script src="main.js" defer></script>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDyPZ7cD8CdZEft2GbpjPU0OmgVQc2IYBk",
+    authDomain: "flux-620a0.firebaseapp.com",
+    projectId: "flux-620a0",
+    storageBucket: "flux-620a0.firebasestorage.app",
+    messagingSenderId: "499330386793",
+    appId: "1:499330386793:web:c50920bacd0971a0e50bf8",
+    measurementId: "G-FR2GTLRL70"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLUX | System Schematics</title>
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjMDIwNjE3IiBkPSJNMCAwaDUxMnY1MTJIMHoiLz48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiMwMGYyZmYiIHN0cm9rZS13aWR0aD0iMjAiIGQ9Ik0yNTYgNTBsMjAwIDExNXYyMzJMMjU2IDQ2MiA1NiAzOTdWMTY1eiIvPjxwYXRoIGZpbGw9IiMwMGYyZmYiIGQ9Ik0xODAgMTUwaDE1MHY0MGgtMTEwdjYwaDEwMHY0MEgyMjB2OTBoLTQweiIvPjwvc3ZnPg==">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { cyber: '#00f2ff', darkBg: '#020617', glass: 'rgba(15, 23, 42, 0.8)' },
+                    fontFamily: { mono: ['Courier New', 'monospace'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkBg text-slate-300 min-h-screen p-6 font-mono selection:bg-cyber selection:text-black">
+
+    <div class="max-w-7xl mx-auto space-y-12 mb-24">
+        
+        <div class="flex flex-col md:flex-row justify-between items-end border-b border-cyber/30 pb-6 gap-4">
+            <div>
+                <h1 class="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyber to-blue-600 italic uppercase drop-shadow-[0_0_15px_rgba(0,242,255,0.4)]">
+                    FLUX // SPECS
+                </h1>
+                <p class="text-xs text-cyber tracking-[0.4em] mt-2 uppercase">
+                    FULL SYSTEM DIAGNOSTICS & FORMAT DATABASE
+                </p>
+            </div>
+            <a href="index.html" class="px-6 py-3 border border-cyber text-cyber text-xs hover:bg-cyber hover:text-black transition-all font-bold tracking-widest uppercase shadow-[0_0_10px_rgba(0,242,255,0.1)]">
+                < RETURN TO REACTOR
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="bg-slate-900/50 border border-slate-700 p-6 rounded-xl relative overflow-hidden group hover:border-cyber/50 transition-all">
+                <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl">📊</div>
+                <h3 class="text-slate-500 text-[10px] tracking-widest uppercase mb-1">Total Formats</h3>
+                <p id="totalCount" class="text-5xl font-black text-white group-hover:text-cyber transition-colors">0</p>
+                <div class="w-full bg-slate-800 h-1 mt-4"><div class="w-[95%] h-full bg-green-500"></div></div>
+            </div>
+            <div class="bg-slate-900/50 border border-slate-700 p-6 rounded-xl relative overflow-hidden group hover:border-cyber/50 transition-all">
+                <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl">⚙️</div>
+                <h3 class="text-slate-500 text-[10px] tracking-widest uppercase mb-1">Engines</h3>
+                <p class="text-5xl font-black text-white group-hover:text-cyber transition-colors">11</p>
+                <div class="w-full bg-slate-800 h-1 mt-4"><div class="w-[100%] h-full bg-blue-500"></div></div>
+            </div>
+            <div class="bg-slate-900/50 border border-slate-700 p-6 rounded-xl relative overflow-hidden group hover:border-cyber/50 transition-all">
+                <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl">⚡</div>
+                <h3 class="text-slate-500 text-[10px] tracking-widest uppercase mb-1">Memory Pool</h3>
+                <p class="text-5xl font-black text-white group-hover:text-cyber transition-colors">12GB</p>
+                <div class="w-full bg-slate-800 h-1 mt-4"><div class="w-[85%] h-full bg-purple-500"></div></div>
+            </div>
+            <div class="bg-slate-900/50 border border-slate-700 p-6 rounded-xl relative overflow-hidden group hover:border-cyber/50 transition-all">
+                <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl">🌐</div>
+                <h3 class="text-slate-500 text-[10px] tracking-widest uppercase mb-1">Network</h3>
+                <p class="text-2xl font-black text-white mt-3 group-hover:text-cyber transition-colors">OFFLINE READY</p>
+                <div class="w-full bg-slate-800 h-1 mt-4"><div class="w-[100%] h-full bg-cyber"></div></div>
+            </div>
+        </div>
+
+        <div class="space-y-8">
+            <h2 class="text-cyber text-2xl font-black border-l-4 border-cyber pl-4 uppercase">
+                Supported Format Matrix
+            </h2>
+
+            <div class="bg-glass border border-slate-700 p-6 rounded-2xl">
+                <div class="flex justify-between border-b border-slate-600 mb-4 pb-2">
+                    <h3 class="text-white font-bold flex items-center gap-2">
+                        <span class="w-2 h-2 bg-red-500 rounded-full"></span> VIDEO CONTAINERS
+                    </h3>
+                    <span class="text-slate-500 text-xs">ENGINE: FFmpeg (Wasm)</span>
+                </div>
+                <div class="format-list grid grid-cols-4 md:grid-cols-8 gap-2 text-[10px] text-slate-400">
+                    <span>.MP4</span> <span>.MKV</span> <span>.AVI</span> <span>.MOV</span> <span>.WMV</span> <span>.FLV</span> <span>.WEBM</span> <span>.M4V</span>
+                    <span>.3GP</span> <span>.3G2</span> <span>.OGV</span> <span>.MPEG</span> <span>.MPG</span> <span>.M2TS</span> <span>.MTS</span> <span>.VOB</span>
+                    <span>.DIVX</span> <span>.XVID</span> <span>.F4V</span> <span>.RM</span> <span>.RMVB</span> <span>.ASF</span> <span>.TS</span> <span>.MXF</span>
+                    <span>.SWF</span> <span>.WTV</span> <span>.DVR-MS</span> <span>.GXF</span> <span>.M2V</span> <span>.M1V</span> <span>.MVI</span> <span>.QT</span>
+                </div>
+            </div>
+
+            <div class="bg-glass border border-slate-700 p-6 rounded-2xl">
+                <div class="flex justify-between border-b border-slate-600 mb-4 pb-2">
+                    <h3 class="text-white font-bold flex items-center gap-2">
+                        <span class="w-2 h-2 bg-orange-500 rounded-full"></span> AUDIO STREAMS
+                    </h3>
+                    <span class="text-slate-500 text-xs">ENGINE: FFmpeg (Wasm)</span>
+                </div>
+                <div class="format-list grid grid-cols-4 md:grid-cols-8 gap-2 text-[10px] text-slate-400">
+                    <span>.MP3</span> <span>.AAC</span> <span>.OGG</span> <span>.WMA</span> <span>.M4A</span> <span>.AMR</span> <span>.OPUS</span> <span>.RA</span>
+                    <span>.WAV</span> <span>.FLAC</span> <span>.AIFF</span> <span>.ALAC</span> <span>.PCM</span> <span>.AIF</span> <span>.AIFC</span> <span>.CAF</span>
+                    <span>.MKA</span> <span>.MID</span> <span>.MIDI</span> <span>.AU</span> <span>.AC3</span> <span>.EAC3</span> <span>.DTS</span> <span>.GSM</span>
+                    <span>.OMA</span> <span>.VOC</span> <span>.MPC</span> <span>.VQF</span> <span>.SPX</span> <span>.TTA</span> <span>.W64</span> <span>.WV</span>
+                </div>
+            </div>
+
+            <div class="bg-glass border border-slate-700 p-6 rounded-2xl">
+                <div class="flex justify-between border-b border-slate-600 mb-4 pb-2">
+                    <h3 class="text-white font-bold flex items-center gap-2">
+                        <span class="w-2 h-2 bg-blue-500 rounded-full"></span> RASTER & VECTOR IMAGES
+                    </h3>
+                    <span class="text-slate-500 text-xs">ENGINE: ImageMagick</span>
+                </div>
+                <div class="format-list grid grid-cols-4 md:grid-cols-8 gap-2 text-[10px] text-slate-400">
+                    <span>.JPG</span> <span>.JPEG</span> <span>.PNG</span> <span>.WEBP</span> <span>.GIF</span> <span>.BMP</span> <span>.TIFF</span> <span>.TIF</span>
+                    <span>.ICO</span> <span>.SVG</span> <span>.HEIC</span> <span>.HEIF</span> <span>.AVIF</span> <span>.TGA</span> <span>.J2K</span> <span>.JP2</span>
+                    <span>.PSD</span> <span>.RAW</span> <span>.CR2</span> <span>.NEF</span> <span>.ORF</span> <span>.SR2</span> <span>.DNG</span> <span>.ARW</span>
+                    <span>.RW2</span> <span>.RAF</span> <span>.PEF</span> <span>.3FR</span> <span>.ERF</span> <span>.MEF</span> <span>.MOS</span> <span>.CRW</span>
+                    <span>.KDC</span> <span>.MRW</span> <span>.X3F</span> <span>.JXR</span> <span>.WDP</span> <span>.HDP</span> <span>.CUR</span> <span>.ICNS</span>
+                    <span>.PCX</span> <span>.XPM</span> <span>.XBM</span> <span>.WBMP</span> <span>.PNM</span> <span>.PPM</span> <span>.PGM</span> <span>.PBM</span>
+                </div>
+            </div>
+
+            <div class="bg-glass border border-slate-700 p-6 rounded-2xl">
+                <div class="flex justify-between border-b border-slate-600 mb-4 pb-2">
+                    <h3 class="text-white font-bold flex items-center gap-2">
+                        <span class="w-2 h-2 bg-white rounded-full"></span> DOCUMENTS & TEXT
+                    </h3>
+                    <span class="text-slate-500 text-xs">ENGINE: Pandoc</span>
+                </div>
+                <div class="format-list grid grid-cols-4 md:grid-cols-8 gap-2 text-[10px] text-slate-400">
+                    <span>.DOCX</span> <span>.DOC</span> <span>.PDF</span> <span>.TXT</span> <span>.MD</span> <span>.EPUB</span> <span>.HTML</span> <span>.HTM</span>
+                    <span>.ODT</span> <span>.RTF</span> <span>.TEX</span> <span>.LATEX</span> <span>.XML</span> <span>.LOG</span> <span>.RST</span> <span>.WIKI</span>
+                    <span>.TEXTILE</span> <span>.ASC</span> <span>.ADOC</span> <span>.ORG</span> <span>.TEJI</span> <span>.INFO</span> <span>.MAN</span> <span>.OPML</span>
+                </div>
+            </div>
+
+            <div class="bg-glass border border-slate-700 p-6 rounded-2xl">
+                <div class="flex justify-between border-b border-slate-600 mb-4 pb-2">
+                    <h3 class="text-white font-bold flex items-center gap-2">
+                        <span class="w-2 h-2 bg-green-500 rounded-full"></span> DATA SHEETS
+                    </h3>
+                    <span class="text-slate-500 text-xs">ENGINE: SheetJS</span>
+                </div>
+                <div class="format-list grid grid-cols-4 md:grid-cols-8 gap-2 text-[10px] text-slate-400">
+                    <span>.XLSX</span> <span>.XLS</span> <span>.CSV</span> <span>.TSV</span> <span>.ODS</span> <span>.JSON</span> <span>.FODS</span> <span>.SYLK</span>
+                    <span>.DIF</span> <span>.DBF</span> <span>.PRN</span> <span>.ETH</span> <span>.TXT</span> <span>.HTML</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-glass border border-slate-700 p-6 rounded-2xl">
+                    <div class="flex justify-between border-b border-slate-600 mb-4 pb-2">
+                        <h3 class="text-white font-bold flex items-center gap-2">
+                            <span class="w-2 h-2 bg-purple-500 rounded-full"></span> 3D / CAD
+                        </h3>
+                        <span class="text-slate-500 text-[10px]">ENGINE: Three.js</span>
+                    </div>
+                    <div class="format-list grid grid-cols-4 gap-2 text-[10px] text-slate-400">
+                        <span>.STL</span> <span>.OBJ</span> <span>.GLTF</span> <span>.GLB</span> <span>.PLY</span> <span>.FBX</span> <span>.DAE</span> <span>.3DS</span>
+                        <span>.WR</span> <span>.VRML</span> <span>.X3D</span> <span>.PCD</span>
+                    </div>
+                </div>
+
+                <div class="bg-glass border border-slate-700 p-6 rounded-2xl">
+                    <div class="flex justify-between border-b border-slate-600 mb-4 pb-2">
+                        <h3 class="text-white font-bold flex items-center gap-2">
+                            <span class="w-2 h-2 bg-yellow-500 rounded-full"></span> SUBTITLES
+                        </h3>
+                        <span class="text-slate-500 text-[10px]">ENGINE: Subsrt</span>
+                    </div>
+                    <div class="format-list grid grid-cols-4 gap-2 text-[10px] text-slate-400">
+                        <span>.SRT</span> <span>.VTT</span> <span>.SBV</span> <span>.SUB</span> <span>.ASS</span> <span>.SSA</span> <span>.LRC</span> <span>.CAP</span>
+                        <span>.SMI</span> <span>.RT</span> <span>.VTT</span>
+                    </div>
+                </div>
+
+                <div class="bg-glass border border-slate-700 p-6 rounded-2xl">
+                    <div class="flex justify-between border-b border-slate-600 mb-4 pb-2">
+                        <h3 class="text-white font-bold flex items-center gap-2">
+                            <span class="w-2 h-2 bg-red-500 rounded-full"></span> ARCHIVES
+                        </h3>
+                        <span class="text-slate-500 text-[10px]">ENGINE: JSZip / Untar</span>
+                    </div>
+                    <div class="format-list grid grid-cols-4 gap-2 text-[10px] text-slate-400">
+                        <span>.ZIP</span> <span>.TAR</span> <span>.GZ</span> <span>.TAR.GZ</span> <span>.BZ2</span> <span>.XZ</span> <span>.Z</span>
+                    </div>
+                </div>
+
+                <div class="bg-glass border border-slate-700 p-6 rounded-2xl">
+                    <div class="flex justify-between border-b border-slate-600 mb-4 pb-2">
+                        <h3 class="text-white font-bold flex items-center gap-2">
+                            <span class="w-2 h-2 bg-pink-500 rounded-full"></span> SCIENCE & TYPE
+                        </h3>
+                        <span class="text-slate-500 text-[10px]">ENGINE: Daikon / Opentype</span>
+                    </div>
+                    <div class="format-list grid grid-cols-4 gap-2 text-[10px] text-slate-400">
+                        <span>.DCM</span> <span>.DICOM</span> <span>.TTF</span> <span>.OTF</span> <span>.WOFF</span> <span>.WOFF2</span> <span>.EOT</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+            
+            <div class="bg-slate-900 border border-slate-800 p-8 rounded-xl">
+                <h2 class="text-cyber text-lg font-bold mb-4 uppercase">Construction Stack</h2>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-xs text-orange-400">HTML5</span>
+                    <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-xs text-blue-400">Tailwind CSS</span>
+                    <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-xs text-yellow-400">JavaScript ES6</span>
+                    <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-xs text-purple-400">WebAssembly</span>
+                    <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-xs text-green-400">C++ (Source)</span>
+                    <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-xs text-white">Rust (Source)</span>
+                </div>
+                <p class="text-[10px] text-slate-400 leading-relaxed">
+                    FLUX is a "Serverless Thick Client". It uses the device's own CPU and RAM to create a virtual computing environment within the browser sandbox. No data leaves the device.
+                </p>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 p-8 rounded-xl text-[10px] text-slate-500 flex flex-col justify-between">
+                <div>
+                    <h2 class="text-slate-300 text-sm font-bold mb-4 uppercase flex items-center gap-2">
+                        <span class="text-cyber">©</span> Legal & Attribution
+                    </h2>
+                    
+                    <div class="space-y-2 mb-6 border-l-2 border-slate-800 pl-3">
+                        <p><strong class="text-slate-400">FFmpeg / ImageMagick:</strong> Used under LGPL/Apache 2.0.</p>
+                        <p><strong class="text-slate-400">Three.js / Pandoc:</strong> Used under MIT/GPL.</p>
+                        <p><strong class="text-slate-400">System Core:</strong> Developed by MONOAXIS.</p>
+                    </div>
+                </div>
+                
+                <div class="pt-6 border-t border-slate-800">
+                    <p class="text-cyber font-bold tracking-widest mb-2">MONOAXIS® END USER LICENSE</p>
+                    
+                    <p class="mb-2 text-slate-400">
+                        Copyright © 2026 <a href="https://monoaxis.netlify.app" target="_blank" class="text-white hover:text-cyber border-b border-slate-700 pb-0.5 transition-colors">MONOAXIS</a>. All Rights Reserved.
+                    </p>
+                    
+                    <p class="leading-relaxed opacity-80">
+                        FLUX™ and the FLUX Engine architecture are trademarks of MONOAXIS. 
+                        This software is provided "as-is" for personal and educational use. 
+                        Unauthorized reproduction, reverse engineering of the proprietary "God Router" logic, or commercial redistribution without express written consent from MONOAXIS is strictly prohibited.
+                    </p>
+                    
+                    <div class="mt-4 flex gap-2">
+                        <span class="px-2 py-1 bg-slate-800 rounded text-[9px] text-cyber border border-cyber/20">v3.0 STABLE</span>
+                        <span class="px-2 py-1 bg-slate-800 rounded text-[9px] text-slate-400 border border-slate-700">BUILD 15.02.2026</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center pt-10 pb-4">
+            <p class="text-[10px] text-slate-600 font-mono">
+                // SYSTEM DIAGNOSTICS COMPLETE. END OF LINE.
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        // This counts every span in the format lists to give an exact number
+        window.onload = function() {
+            const spans = document.querySelectorAll('.format-list span');
+            let count = spans.length;
+            
+            // Add estimate for internal FFmpeg codecs not explicitly listed (approx 800+)
+            const legacyCodecEstimate = 800; 
+            
+            const total = count + legacyCodecEstimate;
+            
+            // Animate Counter
+            const el = document.getElementById('totalCount');
+            let i = 0;
+            const interval = setInterval(() => {
+                i += 25;
+                el.innerText = i + "+";
+                if (i >= total) {
+                    clearInterval(interval);
+                    el.innerText = total + "+";
+                }
+            }, 10);
+        };
+    </script>
+</body>
+</html>

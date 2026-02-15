@@ -1,0 +1,49 @@
+{
+  "name": "FLUX | Universal Matter Engine",
+  "short_name": "FLUX",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#00f2ff",
+  "description": "Serverless Universal File Converter. 12GB RAM Optimized. Engineered by MONOAXIS.",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2621/2621040.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2621/2621040.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Convert Video",
+      "short_name": "Video",
+      "description": "Convert MKV, AVI, MP4",
+      "url": "/index.html?to=mp4",
+      "icons": [{ "src": "https://cdn-icons-png.flaticon.com/512/2621/2621040.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Archive Files",
+      "short_name": "Zip",
+      "description": "Create ZIP Archive",
+      "url": "/index.html?to=zip",
+      "icons": [{ "src": "https://cdn-icons-png.flaticon.com/512/2621/2621040.png", "sizes": "192x192", "type": "image/png" }]
+    }
+  ],
+  "share_target": {
+    "action": "/index.html",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}
